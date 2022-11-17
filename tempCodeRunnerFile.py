@@ -12,12 +12,9 @@ n_refresh_time = 1 #global variable for refresh time
 s_url = 'https://autobot.tf/items/random' #global variable for url
 s_file_name = 'index.csv' #global variable for file name
 s_user_agent = 'Mozilla/5.0' #global variable for user agent
-print("::Preass 'ctrl+c' to stop the script after pressing your cursor focus here::")
-n_line_count = 0 #global variable for line count
 
-
-while n_line_count < 1000 : #loop for 1000 times.
-  # print(f"This prints every {n_refresh_time} seconds.") #print refresh time optional.
+while True: #infinite loop to keep refreshing
+  print(f"This prints every {n_refresh_time} seconds.") #print refresh time optional.
   http_requester = urllib.request.Request(s_url,headers={'User-Agent': s_user_agent}) #global variable for request with url and user agent, User agent is to prevent 403 error.
   # request sends a request to the url and returns a response object which is of type http.client.HTTPResponse
   html_content = urllib.request.urlopen(http_requester) # Parsing the html, Provide html elements' attributes to extract the data
@@ -44,5 +41,4 @@ while n_line_count < 1000 : #loop for 1000 times.
   with open('sku.txt', 'a') as skuId_file:
     for row2 in skutext:
       skuId_file.write(f"sku={row2.get_text().strip()}\n") # insted of using newline='' we have used itemname_file.write(f"sku={row1.get_text().strip()}\n") to prevent extra blank lines in the file. \r is used to prevent extra blank lines in the file same as newline='' but it works only on windows.
-  n_line_count += 1
   time.sleep(n_refresh_time) # sleep delays the execution of the next line of code by the specified number of seconds.
